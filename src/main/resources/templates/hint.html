@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #555;
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<p>The rate value 10% lower</p>
+<td th:text="${low}"/>
+<p>The rate value 10% higher</p>
+<td th:text="${high}"/>
+<br>
+<button onclick="goBack()">Go Back</button>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<p>The rate value 10% lower</p>-->
+<!--<td th:text="${low}"/>-->
+<!--<p>The rate value 10% higher</p>-->
+<!--<td th:text="${high}"/>-->
+<!--<br>-->
+<!--<button onclick="goBack()">Go Back</button>-->
+<!--<script>-->
+<!--    function goBack() {-->
+<!--        window.history.back();-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->

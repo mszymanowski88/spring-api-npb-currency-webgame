@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome in currency game</title>
+</head>
+<body style="color:blue;">
+
+<h1 style="color:darkgoldenrod;">Currency Game App</h1>
+
+<p style="color:grey;">This would be hidded in final version, presented for testing purpose :</p>
+<td th:text="${rateCode}"/>
+
+
+<p style="color:red;">Guess rate of :</p>
+<td th:text="${rate}"/>
+
+
+<form action="#" th:action="@{/start}" th:object="${userInput}" method="post">
+
+    <p>Input your rate guess: <input type="text"  th:field="*{code}"/></p>
+
+    <p><input type="submit"    value="Submit"/> <input type="reset" value="Reset"/></p>
+
+</form>
+<button onclick="myFunction()">Clik for hint</button>
+
+<script>
+    function myFunction() {
+        location.replace("http://localhost:8080/hint")
+    }
+</script>
+<td th:text="${result}"/>
+<p>Number of guesses :</p>
+<td th:text="${counter}"/>
+
+</body>
+</html>
