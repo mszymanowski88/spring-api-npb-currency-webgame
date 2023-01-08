@@ -39,8 +39,6 @@ public class Rate {
     }
 
    @NotNull
-//   @Min(18)
-//   @Pattern(regexp="[\\d]{6}", message = "{Pattern.Rate.Code}")
    @Min(value = 0L, message = "Please input digits only, separated by dot")
     @JsonProperty("code")
     public String getCode() {

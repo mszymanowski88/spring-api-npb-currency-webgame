@@ -166,8 +166,15 @@
             <p>Input your rate guess: <input type="text"  th:field="*{code} "/></p>
             <td th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Name Error</td>
             </tr>
-<!--            <p th:if="${#field.hasErrors()} and !${#dataField.matches('[0-9]{3,8}')}">field value must be digit and less than 4 signs</p>-->
+            <!--            <p th:if="${#field.hasErrors()} and !${#dataField.matches('[0-9]{3,8}')}">field value must be digit and less than 4 signs</p>-->
             </td>
+
+
+            <!--            <p>Input your rate guess: <input type="text"  th:field="*{code} "/></p>-->
+<!--            <td th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Name Error</td>-->
+<!--            </tr>-->
+<!--&lt;!&ndash;            <p th:if="${#field.hasErrors()} and !${#dataField.matches('[0-9]{3,8}')}">field value must be digit and less than 4 signs</p>&ndash;&gt;-->
+<!--            </td>-->
 
 
             <p><input type="submit"    value="Submit"/> <input type="reset" value="Reset"/></p>
