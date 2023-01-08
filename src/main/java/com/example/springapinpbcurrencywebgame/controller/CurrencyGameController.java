@@ -2,9 +2,11 @@ package com.example.springapinpbcurrencywebgame.controller;
 
 import com.example.springapinpbcurrencywebgame.api.Rate;
 import com.example.springapinpbcurrencywebgame.service.CurrencyGameService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,18 +61,29 @@ private final CurrencyGameService currencyGameService;
 
 
   }
+//
+//    @PostMapping("/start")
+//    public String inputValidation(@Valid Rate rate, BindingResult bindingResult )
+//    {
+//        {
+//
+//            if (bindingResult.hasErrors()) {
+//                return "start";
+//            }
+//
+//
+//        return "redirect:/start";
+//    }
+
+
     @PostMapping("/start")
-    public String userGuess(@ModelAttribute Rate rate) throws ParseException {
+    public String userGuess(@Valid @ModelAttribute ("userInput") Rate rate,BindingResult bindingResult  ) throws ParseException {
+
+        if (bindingResult.hasErrors()) {
+            return "start";
+        }
 
         double numberos ;
-
-//        BigDecimal inputToParse = new BigDecimal(0.00);
-//        String  bigDecimalToparse = inputToParse.toString();
-//        String decimalParsed = String.format(Locale.ROOT, "%.2f",bigDecimalToparse);
-//        BigDecimal input = new BigDecimal(decimalParsed);
-
-//
-//        BigDecimal input = BigDecimal.valueOf(rate.getCode());
 
         String userInput = rate.getCode();
         if(userInput.contains(","))
@@ -79,20 +92,14 @@ private final CurrencyGameService currencyGameService;
             System.out.println("user napisa "+userInput);
             NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
             Number number = format.parse(userInput);
-          numberos = number.doubleValue()/100;
-//            DecimalFormat df = new DecimalFormat();
-//            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-//            symbols.setDecimalSeparator(',');
-//            symbols.setGroupingSeparator('2');
-//            df.setDecimalFormatSymbols(symbols);
-//            df.parse(input);
-//           System.out.println(input);
+            numberos = number.doubleValue()/100;
+
             System.out.println("from if" + numberos);
 
         }
         else
         {
-       numberos=  Double.parseDouble(userInput);
+            numberos=  Double.parseDouble(userInput);
             System.out.println("else " + numberos);
         }
 
@@ -101,6 +108,28 @@ private final CurrencyGameService currencyGameService;
         BigDecimal input =
 
                 BigDecimal.valueOf(numberos).setScale(1, RoundingMode.HALF_UP);
+
+
+        if (input.compareTo(rateToGuess) < 0) {
+
+            System.out.println("numeros > 0 " +numberos);
+            result = "too much, try one more time";
+            counter++;
+
+
+        }
+        if (input.equals(rateToGuess)) {
+            System.out.println("numeros == 0 " +numberos);
+            result = "Congratulations! You won!";
+        }
+
+        if (input.compareTo(rateToGuess) < 0) {
+            System.out.println("numeros < 0 " +numberos);
+            result = "too less, try one more time";
+            counter++;
+        }
+
+
 
 
         if (input.compareTo(rateToGuess) > 0) {
@@ -125,6 +154,64 @@ private final CurrencyGameService currencyGameService;
         return "redirect:/start";
 
     }
+
+
+
+
+
+
+//    @PostMapping("/start")
+//    public String userGuess(@ModelAttribute Rate rate) throws ParseException {
+//
+//        double numberos ;
+//
+//        String userInput = rate.getCode();
+//        if(userInput.contains(","))
+//
+//        {
+//            System.out.println("user napisa "+userInput);
+//            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+//            Number number = format.parse(userInput);
+//          numberos = number.doubleValue()/100;
+//
+//            System.out.println("from if" + numberos);
+//
+//        }
+//        else
+//        {
+//       numberos=  Double.parseDouble(userInput);
+//            System.out.println("else " + numberos);
+//        }
+//
+////        System.out.println("outside " + numberos);
+////
+//        BigDecimal input =
+//
+//                BigDecimal.valueOf(numberos).setScale(1, RoundingMode.HALF_UP);
+//
+//
+//        if (input.compareTo(rateToGuess) > 0) {
+//
+//            System.out.println("numeros > 0 " +numberos);
+//            result = "too much, try one more time";
+//            counter++;
+//
+//
+//        }
+//        if (input.equals(rateToGuess)) {
+//            System.out.println("numeros == 0 " +numberos);
+//            result = "Congratulations! You won!";
+//        }
+//
+//        if (input.compareTo(rateToGuess) < 0) {
+//            System.out.println("numeros < 0 " +numberos);
+//            result = "too less, try one more time";
+//            counter++;
+//        }
+//
+//        return "redirect:/start";
+//
+//    }
 
 //    @PostMapping("/start")
 //    public String userGuess(@ModelAttribute Rate rate) {

@@ -2,6 +2,8 @@
 package com.example.springapinpbcurrencywebgame.api;
 
 import com.fasterxml.jackson.annotation.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import javax.annotation.processing.Generated;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import java.util.Map;
     "code",
     "mid"
 })
+
 @Generated("jsonschema2pojo")
 public class Rate {
 
@@ -35,6 +38,10 @@ public class Rate {
         this.currency = currency;
     }
 
+   @NotNull
+//   @Min(18)
+//   @Pattern(regexp="[\\d]{6}", message = "{Pattern.Rate.Code}")
+   @Min(value = 0L, message = "Please input digits only, separated by dot")
     @JsonProperty("code")
     public String getCode() {
         return code;
