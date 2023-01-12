@@ -11,26 +11,87 @@ import java.util.List;
 @Service
 public class CurrencyGameService {
 
- AvailableCurrency[] availableCurrency;
+    private AvailableCurrency[] availableCurrency;
+    private int counter = 0;
+    private String result;
 
 
     public CurrencyGameService() {
         RestTemplate restTemplate = new RestTemplate();
 
         this.availableCurrency = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/a", AvailableCurrency[].class);
+    }
+
+
+    public void hint(BigDecimal input, BigDecimal rateToGuess) {
+        if (input.doubleValue() > rateToGuess.doubleValue() * 1.1) {
+
+            System.out.println("numeros > 0 " + input);
+            result = "freezing, try one more time";
+            counter++;
+
+
+        }
+
+        if (input.doubleValue() < rateToGuess.doubleValue() * 1.1 && input.doubleValue() > rateToGuess.doubleValue()) {
+
+            System.out.println("numeros > 0 " + input);
+            result = "cold, try one more time";
+            counter++;
+
+
+        }
+
+        if (input.doubleValue() < rateToGuess.doubleValue() * 1.05 && input.doubleValue() > rateToGuess.doubleValue()) {
+
+            System.out.println("numeros > 0 " + input);
+            result = "hot, try one more time";
+            counter++;
+
+
+        }
+
+        if (input.equals(rateToGuess)) {
+            System.out.println("numeros == 0 " + input);
+            result = "Congratulations! You won!";
+        }
+
+        if (input.compareTo(rateToGuess) < 0) {
+            System.out.println("numeros < 0 " + input);
+            result = "freezing, try one more time";
+            counter++;
+        }
+
+        if (input.doubleValue() > rateToGuess.doubleValue() * 0.95 && input.doubleValue() < rateToGuess.doubleValue()) {
+
+            System.out.println("numeros > 0 " + input);
+            result = "hot, try one more time";
+            counter++;
+
+
+        }
+
+
+        if (input.doubleValue() > rateToGuess.doubleValue() * 0.90 && input.doubleValue() < rateToGuess.doubleValue() * 0.95 && input.doubleValue() < rateToGuess.doubleValue()) {
+
+            System.out.println("numeros > 0 " + input);
+            result = "cold, try one more time";
+            counter++;
+
+
+        }
+
 
     }
 
 
-    public List<Rate> getAllRates()
-    {
-      return availableCurrency[0].getRates();
+    public List<Rate> getAllRates() {
+        return availableCurrency[0].getRates();
 
 
     }
 
-    public Rate getEurRate()
-    {
+    public Rate getEurRate() {
         return getAllRates().get(7);
 
 
@@ -56,8 +117,19 @@ public class CurrencyGameService {
         return highHint.doubleValue();
     }
 
+    public int getCounter() {
+        return counter;
+    }
 
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
+    public String getResult() {
+        return result;
+    }
 
-
+    public void setResult(String result) {
+        this.result = result;
+    }
 }

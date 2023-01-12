@@ -1,9 +1,6 @@
-
 package com.example.springapinpbcurrencywebgame.api;
 
 import com.fasterxml.jackson.annotation.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 
 import javax.annotation.processing.Generated;
 import java.util.HashMap;
@@ -11,9 +8,9 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "currency",
-    "code",
-    "mid"
+        "currency",
+        "code",
+        "mid"
 })
 
 @Generated("jsonschema2pojo")
@@ -38,8 +35,7 @@ public class Rate {
         this.currency = currency;
     }
 
-   @NotNull
-   @Min(value = 0L, message = "Please input digits only, separated by dot")
+
     @JsonProperty("code")
     public String getCode() {
         return code;
@@ -52,7 +48,6 @@ public class Rate {
 
     @JsonProperty("mid")
     public Double getMid() {
-
 
 
         return mid;
